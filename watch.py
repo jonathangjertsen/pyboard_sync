@@ -143,7 +143,7 @@ class PyboardSync(watchdog.events.FileSystemEventHandler):
             if retries > 0:
                 self.print_if_verbose("Failed to upload. Retrying in a second.")
                 time.sleep(1)
-                self.upload_file(src_path, retries-1)
+                self.delete_file(src_path, retries-1)
             else:
                 self.print_if_verbose("Maximum retries exceeded. "
                                       "If you have an open REPL session, "
