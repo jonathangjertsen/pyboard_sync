@@ -105,6 +105,11 @@ class PyboardSync(watchdog.events.FileSystemEventHandler):
         com.write("\x04".encode())
         time.sleep(0.1)
 
+        # Close port
+        com.close()
+
+        self.print_if_verbose("Soft rebooting complete")
+
 
     def upload_file(self, src_path: str, retries: int):
         """Upload or overwrite a file on the pyboard."""
@@ -124,7 +129,7 @@ class PyboardSync(watchdog.events.FileSystemEventHandler):
             else:
                 self.print_if_verbose("Maximum retries exceeded. "
                                       "If you have an open REPL session, "
-                                      "please close it.")
+                                      "please close it or send Ctrl+C to continue.")
 
 
     def delete_file(self, src_path: str, retries: int):
@@ -142,7 +147,7 @@ class PyboardSync(watchdog.events.FileSystemEventHandler):
             else:
                 self.print_if_verbose("Maximum retries exceeded. "
                                       "If you have an open REPL session, "
-                                      "please close it.")
+                                      "please close it or send Ctrl+C to continue.")
 
 
     def on_modified(self, event):
